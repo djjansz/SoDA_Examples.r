@@ -6,6 +6,7 @@
 ##          http://www.pafko.com/tycho/observe.html
 ###################################################################################################
 # set global options and provide the location of the working directory
+# library(SoDA);library(mgcv);library(lattice);
 getOption("digits")
 1.2345
 options(digits=3)
