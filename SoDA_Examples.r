@@ -118,3 +118,30 @@ pause(2)
 dev.off(2)
 #object that describes all of the terms implied by this model formula
 terms(~ x0 * (x1+x2))
+dropFormula<-function(original, drop) 
+{
+    factors <- attr(terms(as.formula(original)), "factors")
+    row <- match(drop, rownames(factors))
+    whichTerms <- factors[row, ] == 1
+    labels <- colnames(factors)[whichTerms]
+    text <- paste("~ . ", paste("-", labels, collapse = " "))
+    eval(parse(text = text))
+}
+formula<-y~x0*(x1+x2)
+terms(formula)
+fMatrix<-attr(terms(formula),"factors")
+fMatrix
+fMatrix["x1",]
+   x0    x1    x2 x0:x1 x0:x2 
+    0     1     0     1     0 
+whichTerms<-fMatrix["x1",]==1
+whichTerms
+colnames(fMatrix)
+colnames(fMatrix)[whichTerms]
+dropModel<-function(model,drop){
+    model2 <- update(model, dropFormula(model, drop))
+    plot(resid(model), resid(model2), xlab = "Original Residuals", 
+        ylab = paste("Residuals after dropping", drop))
+    abline(0, 1)
+    model2
+}
