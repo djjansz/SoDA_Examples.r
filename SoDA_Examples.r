@@ -6,11 +6,13 @@
 ## NOTES:   Install the following packages before running this code:
 ##          install.packages(c("gam","HSAUR","SoDA"));
 ###################################################################################################
+rm(list=ls(all=TRUE)) 
 library(SoDA)
 library(HSAUR)
 library(gam)
 #data from pafko.com/tycho about the declination of Mars (the angle the planet makes with the equator)
-setwd("C:/Users/SJF/OneDrive - Economical Insurance/Documents/Data")
+#setwd("C:/Users/SJF/OneDrive - Economical Insurance/Documents/Data")
+setwd("C:/R")
 getwd()
 mars<-read.csv("mars.csv",skip=5,as.is=TRUE)
 #help(package = "gam")
@@ -132,8 +134,6 @@ terms(formula)
 fMatrix<-attr(terms(formula),"factors")
 fMatrix
 fMatrix["x1",]
-   x0    x1    x2 x0:x1 x0:x2 
-    0     1     0     1     0 
 whichTerms<-fMatrix["x1",]==1
 whichTerms
 colnames(fMatrix)
@@ -145,3 +145,8 @@ dropModel<-function(model,drop){
     abline(0, 1)
     model2
 }
+
+dropModel(model,"sne")
+modelSne<-upd(~ . - sne - seeding:sne)
+modelSne
+
