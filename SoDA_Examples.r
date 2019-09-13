@@ -11,8 +11,8 @@ library(SoDA)
 library(HSAUR)
 library(gam)
 #data from pafko.com/tycho about the declination of Mars (the angle the planet makes with the equator)
-#setwd("C:/Users/SJF/OneDrive - Economical Insurance/Documents/Data")
-setwd("C:/R")
+setwd("C:/Users/SJF/OneDrive - Economical Insurance/Documents/Data")
+#setwd("C:/R")
 getwd()
 mars<-read.csv("mars.csv",skip=5,as.is=TRUE)
 #help(package = "gam")
@@ -145,8 +145,10 @@ dropModel<-function(model,drop){
     abline(0, 1)
     model2
 }
-
-dropModel(model,"sne")
+# Original call to remove the sne variable from the linear model
 modelSne<-upd(~ . - sne - seeding:sne)
 modelSne
-
+# After creating the dropFormula and dropModel function we can call the procedure in a more simple way
+modelSne2<-dropModel(model,"sne")
+modelSne2
+pause(4)
