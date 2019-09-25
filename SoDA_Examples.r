@@ -64,12 +64,43 @@ options(digits=8)
 formalArgs(jitter)
 for(j in names(mars)) print(class(mars[,j]))
 sapply(mars,class)
-#pause between plots
+###################################################################################################
+## USER-DEFINED FUNCTIONS                                                                        ##
+###################################################################################################
+#pause(x) pauses for x seconds and prints the time to the window each second
 pause <- function(sec) for (i in 1:sec)
 { cat(format(Sys.time(), "%X"),"\n")
-  date_time<-Sys.time()
+  date_time<-Sys.time() #prints the time each second for x seconds
   while((as.numeric(Sys.time()) - as.numeric(date_time))<1){} 
 }
+#devoff(x) closes open grapics windows 2,3,...,x
+devoff<-function(numwin) for (i in 2:numwin)
+{dev.off(i)
+}
+#
+binaryCount<-function (nodes, leafValues) 
+{
+    nL <- length(leafValues)
+    nN <- nrow(nodes)
+    left <- nodes[, 1]
+    right <- nodes[, 2]
+    left <- ifelse(left < 0, -left, left + nL)
+    right <- ifelse(right < 0, -right, right + nL)
+    count <- c(leafValues, rep(NA, nN))
+    while (any(is.na(count))) 
+	#message(iter, ": ", sum(is.na(count)))
+    count <- c(leafValues, count[left] + count[right])
+    count[-seq(length = nL)]
+}
+###################################################################################################
+#edit the pause function in a separate editor with the trace() function and the edit=TRUE optional argument
+#trace(pause,edit=TRUE)
+#trace on both the entry into the function and exit out of the function
+#trace(pause,browser,exit=browser)
+pause(2)
+#trace-and-browse session with the function pause() - step through subexpressions with the "n" command
+#trace(pause,browser)
+#pause(2)
 for(what in c("p","l","b")) 
 {plot(Date,Declination,type=what)
 pause(3)}
@@ -86,6 +117,7 @@ formula<-rainfall~seeding+(sne+cloudcover+prewetness+echomotion)+time
 model<-lm(formula,data=clouds)
 model
 
+terms(formula)
 lm(formula = formula, data = clouds)
 
 #Coefficients:
@@ -152,3 +184,33 @@ modelSne
 modelSne2<-dropModel(model,"sne")
 modelSne2
 pause(4)
+#call recover from the lowest relevant function call to debug interactively at the time of error
+#options(error=recover)
+#save allthe data in the calls that were active at the time the error occurred then call debugger later on
+#options(error=dump.frames);
+#debugger()
+#send the function to the text editor
+#trace(zapsmall,edit=TRUE)
+#reassign zapsmall so that it will start with the browser and with the call to trace()
+#trace(zapsmall,browser) 
+#send the function to the text editor once again and notice the change in the function definition
+#trace(zapsmall,edit=TRUE)
+zapsmall(c(1.001,2.006,.006,.005),digits=2) #press "n" at each subexpression when in browse mode
+#undo the open with browser behavior using the untrace() function
+#untrace(zapsmall)
+binaryCount <- function(nodes, leafValues) {
+nL <- length(leafValues)
+nN <- nrow(nodes)
+left <- nodes[,1]; right <- nodes[, 2]
+left <- ifelse(left<0, -left, left + nL)
+right <- ifelse(right<0, -right , right + nL)
+count <- c(leafValues, rep(NA, nN))
+while(any(is.na(count)))
+count <- c(leafValues, count[left] + count[right])
+count[-seq(length=nL)]
+}
+# the binaryCount function uses the hclust example from the stats package
+#example(hclust)
+head(UScitiesD)
+head(USArrests)
+#nodeArea <- binaryCount(usTree@nodes, Area)
