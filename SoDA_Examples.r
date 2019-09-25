@@ -214,3 +214,7 @@ count[-seq(length=nL)]
 head(UScitiesD)
 head(USArrests)
 #nodeArea <- binaryCount(usTree@nodes, Area)
+library(ggfortify)
+autoplot(kmeans(USArrests, 3), data = USArrests, label = TRUE, label.size = 3)
+pause(2)
+devoff(3)
