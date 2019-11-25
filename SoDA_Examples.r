@@ -4,15 +4,13 @@
 ## PURPOSE: To consolidate the examples from the book
 ##          Software for Data Analysis: Programming with R
 ## NOTES:   Install the following packages before running this code:
-##          install.packages(c("gam","HSAUR","SoDA"));
+##          install.packages(c("gam","ggfortify","HSAUR","SoDA"));
 ###################################################################################################
 rm(list=ls(all=TRUE)) 
-library(SoDA)
-library(HSAUR)
-library(gam)
+library(gam);library(ggfortify);library(HSAUR);library(SoDA);
 #data from pafko.com/tycho about the declination of Mars (the angle the planet makes with the equator)
-setwd("C:/Users/SJF/OneDrive - Economical Insurance/Documents/Data")
-#setwd("C:/R")
+#setwd("C:/Users/SJF/OneDrive - Economical Insurance/Documents/Data")
+setwd("C:/R")
 getwd()
 mars<-read.csv("mars.csv",skip=5,as.is=TRUE)
 #help(package = "gam")
