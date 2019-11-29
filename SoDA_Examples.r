@@ -41,8 +41,6 @@ list.files(system.file(package="gam")) # List system files for package
 demo(searchList) # Run Demo
 #RSiteSearch("gam") # Search R site for string
 #data(package="gam") # Get list of available datasets for package
-
-
 # Data from an experiment investigating the use of massive amounts of silver iodide (100 to 1000 grams per cloud) in cloud seeding to increase rainfall. 
 Declination<-mars$Declination
 Date<-mars$Date
@@ -63,7 +61,7 @@ formalArgs(jitter)
 for(j in names(mars)) print(class(mars[,j]))
 sapply(mars,class)
 ###################################################################################################
-## USER-DEFINED FUNCTIONS                                                                        ##
+## FUNCTION OBJECTS AND FUNCTION CALLS                                                           ##
 ###################################################################################################
 #pause(x) pauses for x seconds and prints the time to the window each second
 pause <- function(sec) for (i in 1:sec)
@@ -71,11 +69,12 @@ pause <- function(sec) for (i in 1:sec)
   date_time<-Sys.time() #prints the time each second for x seconds
   while((as.numeric(Sys.time()) - as.numeric(date_time))<1){} 
 }
-#devoff(x) closes open grapics windows 2,3,...,x
-devoff<-function(numwin) for (i in 2:numwin)
-{dev.off(i)
+#function to reverse a string
+strReverse <- function(x)
+{
+  sapply(lapply(strsplit(x, NULL), rev), paste, collapse = "")
 }
-#
+#computing an additive summary for all nodes of a binary tree
 binaryCount<-function (nodes, leafValues) 
 {
     nL <- length(leafValues)
@@ -182,6 +181,9 @@ modelSne
 modelSne2<-dropModel(model,"sne")
 modelSne2
 pause(4)
+###################################################################################################
+## TRACING, EDITING, AND INTERACTIVE DEBUGGING                                                   ##
+###################################################################################################
 #call recover from the lowest relevant function call to debug interactively at the time of error
 #options(error=recover)
 #save allthe data in the calls that were active at the time the error occurred then call debugger later on
@@ -224,7 +226,9 @@ devoff(3)
 #trace(aov,edit=TRUE)
 #untrace(aov)
 aov(yield ~ N + K + Error(block/(N + K)), data=npk)
-#CONDITIONS: ERRORS AND WARNINGS
+###################################################################################################
+## CONDITIONS: ERRORS AND WARNINGS                                                              ##
+###################################################################################################
 1+xyz
 withCallingHandlers(1+xyz, error=function(e) cat("<error>"))
 #define xyz and repeat
