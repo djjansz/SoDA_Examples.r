@@ -224,3 +224,34 @@ devoff(3)
 #trace(aov,edit=TRUE)
 #untrace(aov)
 aov(yield ~ N + K + Error(block/(N + K)), data=npk)
+#CONDITIONS: ERRORS AND WARNINGS
+1+xyz
+withCallingHandlers(1+xyz, error=function(e) cat("<error>"))
+#define xyz and repeat
+xyz=2
+1+xyz
+withCallingHandlers(1+xyz, error=function(e) cat("<error>"))
+#remove all of the objects
+rm(list=ls());
+#xyz has not been defined and is used in the expr argument of the tryCatch handler function
+1+xyz
+tryCatch(1+xyz, error=function(e) cat("<you've got an error>\n"))
+#define xyz and repeat
+xyz=2
+1+xyz
+tryCatch(1+xyz)
+# tryCatch.W.E taken from the demo(error.catching)
+tryCatch.W.E <- function(expr){
+W <- NULL
+    w.handler <- function(w){ # warning handler
+      W <<- w
+       invokeRestart("muffleWarning")
+     }
+  list(value = withCallingHandlers(tryCatch(expr, error = function(e) e),warning = w.handler),warning = W)
+}
+log(2)
+str( tryCatch.W.E( log( 2 ) ) )
+log(-1)
+str( tryCatch.W.E( log( -1) ) )
+log("a")
+str( tryCatch.W.E( log("a") ) )
