@@ -1,16 +1,18 @@
 ###################################################################################################
-## TITLE:   SoDA Examples
-## AUTHOR:  Dave J
-## PURPOSE: To consolidate the examples from the book
-##          Software for Data Analysis: Programming with R
-## NOTES:   Install the following packages before running this code:
-##          install.packages(c("gam","ggfortify","HSAUR","SoDA"));
+## TITLE:   SoDA Examples                                                                        ##
+## AUTHOR:  Dave J                                                                               ##
+## PURPOSE: To consolidate the examples from the book                                            ##
+##          Software for Data Analysis: Programming with R                                       ##
+## NOTES:   Pay attention to the setwd() below and change the working directory depending        ##
+##          on which computer you are working on.                                                ##
+##          Install the following packages before running this code:                             ##
+##          install.packages(c("gam","ggfortify","HSAUR","SoDA"));                               ##
 ###################################################################################################
 rm(list=ls(all=TRUE)) 
 library(gam);library(ggfortify);library(HSAUR);library(SoDA);
 #data from pafko.com/tycho about the declination of Mars (the angle the planet makes with the equator)
-#setwd("C:/Users/SJF/OneDrive - Economical Insurance/Documents/Data")
-setwd("C:/R")
+setwd("C:/Users/SJF/OneDrive - Economical Insurance/Documents/Data")
+#setwd("C:/R")
 getwd()
 mars<-read.csv("mars.csv",skip=5,as.is=TRUE)
 #help(package = "gam")
@@ -109,7 +111,6 @@ find("dotplot")
 #package:lattice
 library(mgcv) #package that also has the gam function
 fit1<-mgcv::gam(Kyphosis~lo(Age)+lo(Number)+lo(Start), family=binomial, data=kyphosis) #specifies that the mgcv package's gam() function should be used and not the gam package's gam function with the :: operator
-##CHAPTER 3
 formula<-rainfall~seeding+(sne+cloudcover+prewetness+echomotion)+time
 model<-lm(formula,data=clouds)
 model
@@ -227,7 +228,7 @@ devoff(3)
 #untrace(aov)
 aov(yield ~ N + K + Error(block/(N + K)), data=npk)
 ###################################################################################################
-## CONDITIONS: ERRORS AND WARNINGS                                                              ##
+## CONDITIONS: ERRORS AND WARNINGS                                                               ##
 ###################################################################################################
 1+xyz
 withCallingHandlers(1+xyz, error=function(e) cat("<error>"))
@@ -259,3 +260,17 @@ log(-1)
 str( tryCatch.W.E( log( -1) ) )
 log("a")
 str( tryCatch.W.E( log("a") ) )
+###################################################################################################
+## R PACKAGES: CREATE A PACKAGE AND THEN DELETE IT                                               ##
+###################################################################################################
+SoDA2Objects <- c("geoXY", "geoDist", "packageAdd")
+package.skeleton("SoDA2", SoDA2Objects, path = "C:/Users/SJF/OneDrive - Economical Insurance/Documents/R/R-3.6.1/library")
+dir.create("C:/Users/SJF/OneDrive - Economical Insurance/Documents/R/R-3.6.1/library/SoDA2/data")
+mars<-read.csv("mars.csv",skip=5,as.is=TRUE)
+dowNames <-c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday","Saturday")
+save(mars,dowNames, list = character(),file = "C:/Users/SJF/OneDrive - Economical Insurance/Documents/R/R-3.6.1/library/SoDA2/data/marsDOW.rda")
+rm(list=ls(all=TRUE)) 
+load("C:/Users/SJF/OneDrive - Economical Insurance/Documents/R/R-3.6.1/library/SoDA2/data/marsDOW.rda")
+head(mars)
+dowNames
+unlink("C:/Users/SJF/OneDrive - Economical Insurance/Documents/R/R-3.6.1/library/SoDA2", recursive=TRUE)
