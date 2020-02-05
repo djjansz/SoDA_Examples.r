@@ -9,7 +9,7 @@
 ##          install.packages(c("gam","ggfortify","HSAUR","SoDA"));                               ##
 ###################################################################################################
 rm(list=ls(all=TRUE)) 
-library(gam);library(ggfortify);library(HSAUR);library(SoDA);
+library(gam);library(ggfortify);library(HSAUR);library(SoDA);library(hash)
 #data from pafko.com/tycho about the declination of Mars (the angle the planet makes with the equator)
 setwd("C:/Users/SJF/OneDrive - Economical Insurance/Documents/Data")
 #setwd("C:/R")
@@ -76,6 +76,20 @@ strReverse <- function(x)
 {
   sapply(lapply(strsplit(x, NULL), rev), paste, collapse = "")
 }
+stopiferror <- function(cond) 
+{  if (cond==1) 
+	{message(deparse(substitute(cond)), " has an error")  
+		 while (TRUE) {}
+	}
+}
+#define some objects related to the Canadian provinces
+provinces<-c("AB","BC","MB","NB","NL","NS","NU","NT","ON","PE","QC","SK","YT")
+region_provinces<-hash(c("CW","AT","AB","ON"),c("'AB','NB','NS','ON','PE','QC'","'NB','NS','PE'","'AB'","'ON'"))
+region_names<-hash(c("CW","AT","AB","ON"),c("Country Wide","Atlantics","Alberta","Ontario"))
+#show the region name of CW
+region_names[["CW"]]
+#show the provinces in CW
+region_provinces[["CW"]]
 #computing an additive summary for all nodes of a binary tree
 binaryCount<-function (nodes, leafValues) 
 {
