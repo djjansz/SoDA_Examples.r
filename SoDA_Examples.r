@@ -278,13 +278,14 @@ str( tryCatch.W.E( log("a") ) )
 ## R PACKAGES: CREATE A PACKAGE AND THEN DELETE IT                                               ##
 ###################################################################################################
 SoDA2Objects <- c("geoXY", "geoDist", "packageAdd")
-package.skeleton("SoDA2", SoDA2Objects, path = "C:/Users/SJF/OneDrive - Economical Insurance/Documents/R/R-3.6.1/library")
-dir.create("C:/Users/SJF/OneDrive - Economical Insurance/Documents/R/R-3.6.1/library/SoDA2/data")
+package.skeleton("SoDA2", SoDA2Objects, path = "C:/R")
+dir.create("C:/R/SoDA2/data")
 mars<-read.csv("mars.csv",skip=5,as.is=TRUE)
 dowNames <-c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday","Saturday")
-save(mars,dowNames, list = character(),file = "C:/Users/SJF/OneDrive - Economical Insurance/Documents/R/R-3.6.1/library/SoDA2/data/marsDOW.rda")
+save(mars,dowNames, list = character(),file = "C:/R/SoDA2/data/marsDOW.rda")
 rm(list=ls(all=TRUE)) 
-load("C:/Users/SJF/OneDrive - Economical Insurance/Documents/R/R-3.6.1/library/SoDA2/data/marsDOW.rda")
+load("C:/R/SoDA2/data/marsDOW.rda")
 head(mars)
 dowNames
-unlink("C:/Users/SJF/OneDrive - Economical Insurance/Documents/R/R-3.6.1/library/SoDA2", recursive=TRUE)
+#delete the folder
+unlink("C:/R/SoDA2", recursive=TRUE) 
