@@ -289,3 +289,21 @@ head(mars)
 dowNames
 #delete the folder
 unlink("C:/R/SoDA2", recursive=TRUE) 
+#documentation on the class ts
+class?ts 
+#methods for the function show()
+methods?show
+#documention on the Matrix package
+package?SoDA
+#see examples from the documentation page on lm
+example(lm)
+#the evaluator will search the namespace when functions are called
+search()
+#show the location of the base R package
+system.file()
+#show the location of the SoDA package
+system.file(package="SoDA")
+#show the path of the chunks program in the perl subdirectory of the SoDA package
+system.file("perl",c("chunks.perl"),package="SoDA")
+#list the files and folders under the SoDA package's root directory
+list.files(system.file(package="SoDA"))
